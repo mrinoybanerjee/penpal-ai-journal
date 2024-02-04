@@ -3,34 +3,33 @@
 
 import requests
 
-# text for the voice to say
-text = "Hello Jared Bailey"
+def eleven_labs_api(text="Hello Chatbot", api_key, voice_id)
 
-# elevenlabs xi-api-key
-api_key = '' # included in separate message
-
-# elevenlabs voice_id
-voice_id = '' # included in separate message
-
-# url for the API call
-url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
-
-payload = {
-    "text": f"{text}", # this is what the voice will say
-    "voice_settings": {
-        "similarity_boost": 1,
-        "stability": 0
+    # elevenlabs xi-api-key
+    # api_key = '' # included in separate message
+    
+    # elevenlabs voice_id
+    # voice_id = '' # included in separate message
+    
+    # url for the API call
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+    
+    payload = {
+        "text": f"{text}", # this is what the voice will say
+        "voice_settings": {
+            "similarity_boost": 1,
+            "stability": 0
+        }
     }
-}
-headers = {
-    "xi-api-key": f"{api_key}",
-    "Content-Type": "application/json"
-}
-
-response = requests.request("POST", url, json=payload, headers=headers)
-
-CHUNK_SIZE = 1024
-with open('output.mp3', 'wb') as f:
-    for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
-        if chunk:
-            f.write(chunk)
+    headers = {
+        "xi-api-key": f"{api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    response = requests.request("POST", url, json=payload, headers=headers)
+    
+    CHUNK_SIZE = 1024
+    with open('output.mp3', 'wb') as f:
+        for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
+            if chunk:
+                f.write(chunk)
